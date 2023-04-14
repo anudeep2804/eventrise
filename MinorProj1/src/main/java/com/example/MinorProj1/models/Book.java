@@ -1,5 +1,7 @@
 package com.example.MinorProj1.models;
 
+import com.example.MinorProj1.response.BookSearchResponse;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,8 +36,9 @@ public class Book {
 
     @ManyToOne // Relationship type
     @JoinColumn // creates foreign_key
-    private Author author;
+    @JsonIgnoreProperties("bookList") // this will help us prevent deadlock as author and book refernce each other
 
+    private Author author;
     @ManyToOne
     @JoinColumn // student_id will be foreign key in book table , so @JoinColumn is written to create a foreign key
     private Student student;
@@ -50,4 +53,25 @@ public class Book {
 
     @UpdateTimestamp
     private Date updatedOn;
+
+    public BookSearchResponse to(){
+        return BookSearchResponse.builder()
+                .id(id)
+                .name(name)
+                .author(author)
+                .cost(cost)
+                .genre(genre)
+                .student(student)
+                .createdOn(createdOn)
+                .updatedOn(updatedOn)
+                .build();
+    }
+
+    /*
+    general doubts I got :
+
+    @Joincolum was enforced both on student and author , I was not able to save book without author but without student i was,
+    answer to this is bookcreaterequest has author as not null , as author was coming from the frontend it is to be present in the
+    db so that a book with that author name can be created.
+     */
 }
