@@ -1,0 +1,39 @@
+.text-summury {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .brand {
+  text-align: left;
+}
+
+footer .products {
+  text-align: left;
+}
+
+footer .categories {
+  text-align: left;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  padding: 20px 0;
+  background-color: #343a40;
+  color: #fff;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  footer {
+    position: relative;
+  }
+}
+
+@media (max-width: 375px) {
+  footer {
+    position: relative;
+  }
+}
